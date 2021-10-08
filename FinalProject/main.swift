@@ -96,13 +96,13 @@ func displayMenu(){
 }
 
 func displayLowestValueStock(){
-    stocks = stocks.sorted { $0.purchaseSharePrice < $1.purchaseSharePrice}
+    stocks = stocks.sorted { $0.getPurchasePrice() < $1.getPurchasePrice()}
     print("Stock with lowest value is ->")
     dispSpecificIndexStock(index : 0)
 }
 
 func displayHighestValueStock(){
-    stocks = stocks.sorted { $0.purchaseSharePrice > $1.purchaseSharePrice}
+    stocks = stocks.sorted { $0.getPurchasePrice() > $1.getPurchasePrice()}
     print("Stock with highest value is ->")
     dispSpecificIndexStock(index : 0)
 }
@@ -138,12 +138,12 @@ func displayLeastProfitableStock(){
 }
 
 func displayStocksAlphabatically(){
-    stocks = stocks.sorted { $0.companyName.lowercased() < $1.companyName.lowercased()}
+    stocks = stocks.sorted { $0.getCompanyName().lowercased() < $1.getCompanyName().lowercased()}
     displayStocks()
 }
 
 func displayStocksLowHigh(){
-    stocks = stocks.sorted { $0.purchaseSharePrice < $1.purchaseSharePrice}
+    stocks = stocks.sorted { $0.getPurchasePrice() < $1.getPurchasePrice()}
     displayStocks()
 }
 
@@ -152,7 +152,7 @@ func displayStocks(){
         print("No stocks available...Please enter some records first!!!")
     }else{
         stocks.forEach{ stock in
-            print("Company Name: \(stock.companyName), No. of Shares: \(stock.numberOfShares), Purchase price: \(stock.purchaseSharePrice), Current price: \(stock.currentSharePrice)")
+            print("Company Name: \(stock.getCompanyName()), No. of Shares: \(stock.getNoOfShares()), Purchase price: \(stock.getPurchasePrice()), Current price: \(stock.getCurrentPrice())")
         }
     }
 }
@@ -162,14 +162,14 @@ func dispSpecificIndexStock(index : Int){
         print("No stocks available...Please enter some records first!!!")
     }else{
         let stock = stocks[index]
-        print("Company Name: \(stock.companyName), No. of Shares: \(stock.numberOfShares), Purchase price: \(stock.purchaseSharePrice), Current price: \(stock.currentSharePrice)")
+        print("Company Name: \(stock.getCompanyName()), No. of Shares: \(stock.getNoOfShares()), Purchase price: \(stock.getPurchasePrice()), Current price: \(stock.getCurrentPrice())")
     }
 }
 
 func calculateProfit(index : Int)-> Float
 {
-    return ((stocks[index].currentSharePrice - stocks[index].purchaseSharePrice ) * 100
-            / stocks[index].purchaseSharePrice)
+    return ((stocks[index].getCurrentPrice() - stocks[index].getPurchasePrice() ) * 100
+            / stocks[index].getPurchasePrice())
 }
 
 func handleMenuSelection(){
